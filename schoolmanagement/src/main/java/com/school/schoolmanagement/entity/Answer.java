@@ -66,7 +66,7 @@ public class Answer {
 
 	public void setSelectedAnswer(String selectedAnswer) {
 		this.selectedAnswer = selectedAnswer;
-	}.
+	}
 
 
 	
