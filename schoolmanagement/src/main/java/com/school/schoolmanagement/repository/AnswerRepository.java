@@ -14,4 +14,5 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
 	List<Answer> findByStudentId(Long studentId);
 
+
 }

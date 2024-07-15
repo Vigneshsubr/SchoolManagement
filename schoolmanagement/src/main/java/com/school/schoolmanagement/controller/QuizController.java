@@ -56,9 +56,6 @@ public class QuizController {
 //    public Integer getResult(@RequestParam Long studentId, @RequestParam Long quizId) {
 //        return quizService.calculateResult(studentId, quizId);
 //    }
-    
-
-	
 
 }
  

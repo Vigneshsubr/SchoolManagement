@@ -27,6 +27,11 @@ public class ResultService {
 		 return "Deleted Successfully";
 	}
 
+	public Integer calculateTotalMarks(Long studentId) {
+		// TODO Auto-generated method stub
+		return resultRepository.calculateTotalByStudentId(studentId);
+	}
+
 
 
 }

@@ -31,5 +31,11 @@ public class ResultController {
 		return resultService.deleteResult(id);
 		
 	}
+	
+	@GetMapping("/total/{studentId}")
+	public Integer calculateTotalMarks(@PathVariable Long studentId) {
+		return resultService.calculateTotalMarks(studentId);
+		
+	}
 
 }
