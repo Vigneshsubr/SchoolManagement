@@ -1,6 +1,7 @@
 package com.school.schoolmanagement.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,10 @@ import com.school.schoolmanagement.repository.TutorRepository;
 @Service
 public class TutorService {
 	@Autowired
-	public TutorRepository repo;
+	public TutorRepository tutorRepository;
 
 	public String createTutor(Tutor tutor) {
-		repo.save(tutor);
+		tutorRepository.save(tutor);
 		return "Tutor created successfully";
 		// TODO Auto-generated method stub
 		
@@ -22,7 +23,12 @@ public class TutorService {
 
 	public List<Tutor> retriveTutor() {
 		// TODO Auto-generated method stub
-		return repo.findAll();
+		return tutorRepository.findAll();
+	}
+
+	public Optional<Tutor> tutordetials(Long id) {
+		// TODO Auto-generated method stub
+		return tutorRepository.findById(id);
 	}
 
 }

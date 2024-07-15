@@ -36,6 +36,20 @@ public class StudentService {
 		
 	}
 
+	public void updateStudent(Long id,Student student) {
+		// TODO Auto-generated method stub
+		Student updateStudent=repo.findById(id).orElseThrow();
+
+		updateStudent.setName(student.getName());
+		updateStudent.setSchool(student.getSchool());
+		updateStudent.setAddress(student.getAddress());
+		
+		repo.save(updateStudent);
+		
+			
+		
+	}
+
 
 
 

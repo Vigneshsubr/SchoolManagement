@@ -8,7 +8,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;;
 
 @Entity
-@Table(name="tutor_detials")
+@Table(name="tutor")
 
 public class Tutor {
 	
@@ -16,8 +16,25 @@ public class Tutor {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private Integer salary;
+	private String email;
 	private String address;
+	
+	
+	@ManyToOne
+	private School school;
+	
+	@ManyToOne
+	private Subject subject;
+	
+	
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	public Long getId() {
 		return id;
@@ -34,20 +51,19 @@ public class Tutor {
 	}
 
 
+	public Subject getSubject() {
+		return subject;
+	}
+
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-	public Integer getSalary() {
-		return salary;
-	}
-
-
-	public void setSalary(Integer salary) {
-		this.salary = salary;
-	}
-
 
 	public String getAddress() {
 		return address;
@@ -70,8 +86,6 @@ public class Tutor {
 
 
 
-	
-	@ManyToOne
-	private School school;
+
 
 }

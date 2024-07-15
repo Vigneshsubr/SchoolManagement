@@ -67,6 +67,9 @@ public class QuizService {
 			  QuestionDTO qw=new QuestionDTO(q.getId(),q.getQuestion(),q.getOption1(),q.getOption2());
 			  questionForUser.add(qw);
 			  
+			  
+			  
+			  
 		  }
 		return new ResponseEntity<>(questionForUser,HttpStatus.OK);
 	}
@@ -90,7 +93,7 @@ public class QuizService {
 		for(AnswerDTO answerDTO : submissionDTO.getAnswers()) {
 			
 			Question question = questionRepo.findById(answerDTO.getQuestionId()).orElseThrow();
-			Answer answer=new Answer();
+		    Answer answer=new Answer();
 			answer.setStudent(student);
 			answer.setQuiz(quiz);
 			answer.setQuestion(question);
@@ -99,10 +102,8 @@ public class QuizService {
 			answerRepository.save(answer);
 			
 			
-		}
-		
+		}	
 		return null;
-		
 	}
 	
 //	

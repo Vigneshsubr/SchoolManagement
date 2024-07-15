@@ -19,12 +19,22 @@ public class Question {
 	private String option2;
 	private String rightAnswer;
 	
-
+	@ManyToOne
+	private Tutor tutor;
+	
 
 	@ManyToOne
 	private Subject subject;
+	
 
 
+	public Tutor getTutor() {
+		return tutor;
+	}
+
+	public void setTutor(Tutor tutor) {
+		this.tutor = tutor;
+	}
 
 	public long getId() {
 		return id;

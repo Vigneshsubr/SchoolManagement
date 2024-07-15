@@ -43,7 +43,7 @@ public class QuizController {
 	
     @PostMapping("/submit")
     public Result submitQuiz(@RequestBody QuizSubmissionDTO submissionDTO) {
-        return quizService.submitQuiz(submissionDTO);
+         return quizService.submitQuiz(submissionDTO);
     }
     
     
