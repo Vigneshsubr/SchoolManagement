@@ -25,11 +25,12 @@ import com.school.schoolmanagement.repository.StudentRepository;
 
 @Service
 public class QuizService {
-	@Autowired
-	QuizRepository repo;
 	
 	@Autowired
-	QuestionRepository questionRepo;
+	QuizRepository quizRepository;
+	
+	@Autowired
+	QuestionRepository questionRepository;
 	
 	@Autowired
 	AnswerRepository answerRepository;
@@ -44,12 +45,12 @@ public class QuizService {
 //creating quiz
 	public ResponseEntity<String> createQuiz(Long id, int numQ, String title ) {
 		// TODO Auto-generated method stub
-		List<Question> questions= questionRepo.findRandomQuestionBysubject_id(id,numQ);
+		List<Question> questions= questionRepository.findRandomQuestionBysubject_id(id,numQ);
 		
 		Quiz quiz=new Quiz();
 		quiz.setTitle(title);
 		quiz.setQuestion(questions);
-		repo.save(quiz);
+		quizRepository.save(quiz);
 		
 		return new ResponseEntity<>("Success",HttpStatus.CREATED);
 	}
@@ -59,16 +60,12 @@ public class QuizService {
 
 	  public ResponseEntity<List<QuestionDTO>> getQuizQuestions(Long id) {
 		// TODO Auto-generated method stub
-		  Optional<Quiz> quiz=repo.findById(id);
+		  Optional<Quiz> quiz=quizRepository.findById(id);
 		  List<Question> questionFromDB=quiz.get().getQuestion();
 		  List<QuestionDTO> questionForUser=new ArrayList<>();
-		  
 		  for(Question q: questionFromDB) {
 			  QuestionDTO qw=new QuestionDTO(q.getId(),q.getQuestion(),q.getOption1(),q.getOption2());
-			  questionForUser.add(qw);
-			  
-			  
-			  
+			  questionForUser.add(qw);  
 			  
 		  }
 		return new ResponseEntity<>(questionForUser,HttpStatus.OK);
@@ -79,7 +76,7 @@ public class QuizService {
 //Delete quiz
 	public ResponseEntity<List<Quiz>> deleteQuiz(Long id) {
 		// TODO Auto-generated method stub
-		repo.deleteById(id);
+		quizRepository.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.IM_USED);
 	}
 
@@ -88,11 +85,11 @@ public class QuizService {
 	public Result submitQuiz(QuizSubmissionDTO submissionDTO) {
 		// TODO Auto-generated method stub
 		Student student=studentRepository.findById(submissionDTO.getStudentId()).orElseThrow();
-		Quiz quiz=repo.findById(submissionDTO.getQuizId()).orElseThrow();
+		Quiz quiz=quizRepository.findById(submissionDTO.getQuizId()).orElseThrow();
 		
 		for(AnswerDTO answerDTO : submissionDTO.getAnswers()) {
 			
-			Question question = questionRepo.findById(answerDTO.getQuestionId()).orElseThrow();
+			Question question = questionRepository.findById(answerDTO.getQuestionId()).orElseThrow();
 		    Answer answer=new Answer();
 			answer.setStudent(student);
 			answer.setQuiz(quiz);

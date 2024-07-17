@@ -1,5 +1,7 @@
 package com.school.schoolmanagement.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,11 @@ public class SalaryService {
 	SalaryRepository salaryRepository;
 
 	public Salary createSalary(Salary salary) {
-		// TODO Auto-generated method stub
 		return salaryRepository.save(salary);
+	}
+
+	public Optional<Salary> findsalary(Long id) {
+		 return salaryRepository.findById(id);
 	}
 	
 	

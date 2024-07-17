@@ -6,9 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name="result")
+@Data
 public class Result {
 	
 	@Id
@@ -24,55 +26,4 @@ public class Result {
     @ManyToOne
     private Student student;
     
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public int getTotalQuestions() {
-		return totalQuestions;
-	}
-
-	public void setTotalQuestions(int totalQuestions) {
-		this.totalQuestions = totalQuestions;
-	}
-
-	public int getCorrectAnswers() {
-		return correctAnswers;
-	}
-
-	public void setCorrectAnswers(int correctAnswers) {
-		this.correctAnswers = correctAnswers;
-	}
-
-	public int getTotalMarks() {
-		return totalMarks;
-	}
-
-	public void setTotalMarks(int totalMarks) {
-		this.totalMarks = totalMarks;
-	}
-
-	public Quiz getQuiz() {
-		return quiz;
-	}
-
-	public void setQuiz(Quiz quiz) {
-		this.quiz = quiz;
-	}
-
-	public Student getStudent() {
-		return student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-
-
-
 }

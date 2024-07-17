@@ -19,7 +19,7 @@ import com.school.schoolmanagement.entity.Result;
 import com.school.schoolmanagement.service.QuizService;
 
 @RestController
-@RequestMapping("/quiz")
+@RequestMapping("/api/quiz")
 public class QuizController {
 	@Autowired
 	QuizService quizService;
@@ -30,7 +30,7 @@ public class QuizController {
 		
 	}
 	
-	@GetMapping("/get/{id}")
+	@GetMapping("/find/{id}")
 	public ResponseEntity<List<QuestionDTO>> getQuizQuestion(@PathVariable Long id){
 		return quizService.getQuizQuestions(id);
 	}

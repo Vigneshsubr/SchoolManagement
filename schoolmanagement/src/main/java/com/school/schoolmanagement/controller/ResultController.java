@@ -14,7 +14,7 @@ import com.school.schoolmanagement.entity.Result;
 import com.school.schoolmanagement.service.ResultService;
 
 @RestController
-@RequestMapping("/result")
+@RequestMapping("/api/result")
 public class ResultController {
 	
 	@Autowired

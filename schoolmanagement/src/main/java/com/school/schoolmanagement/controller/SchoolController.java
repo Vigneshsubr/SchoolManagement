@@ -15,26 +15,26 @@ import com.school.schoolmanagement.entity.School;
 import com.school.schoolmanagement.service.SchoolService;
 
 @RestController
-@RequestMapping("/school")
-public class SchoolController extends StudentController {
+@RequestMapping("/api/school")
+public class SchoolController {
 	@Autowired
-	SchoolService service;
+	SchoolService schoolService;
 	
 	@PostMapping("/create")
 	public String createNewScool(@RequestBody School school) {
-		service.createNewSchool(school);
+		schoolService.createNewSchool(school);
 		return "school created";
 		
 	}
 	
-	@GetMapping("/getschool")
+	@GetMapping("/findall")
 	public List<School> getAllSchool(School school){
-		return service.getAllSchool(school);		
+		return schoolService.getAllSchool(school);		
 	}
 	
-	@DeleteMapping("/delete{id}")
+	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable  Long school) {
-		 service.deleteSchool(school);
+		schoolService.deleteSchool(school);
 	}
 
 }

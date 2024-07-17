@@ -12,22 +12,22 @@ import com.school.schoolmanagement.repository.SchoolRepository;
 public class SchoolService {
 
 @Autowired
-public SchoolRepository repo;
+public SchoolRepository schoolRepository;
 
 	public void createNewSchool(School school) {
 		// TODO Auto-generated method stub
-		repo.save(school);
+		schoolRepository.save(school);
 		
 	}
 
 	public List<School> getAllSchool(School school) {
 		// TODO Auto-generated method stub
-		return repo.findAll();
+		return schoolRepository.findAll();
 	}
 
 	public void deleteSchool(Long school) {
 		// TODO Auto-generated method stub
-		repo.deleteById(school);
+		schoolRepository.deleteById(school);
 		
 	}
 	

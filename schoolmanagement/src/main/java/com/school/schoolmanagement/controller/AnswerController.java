@@ -13,7 +13,7 @@ import com.school.schoolmanagement.service.AnswerService;
 
 
 @RestController
-@RequestMapping("/answers")
+@RequestMapping("/api/answers")
 public class AnswerController {
 	@Autowired
 	private AnswerService answerService;
@@ -24,7 +24,4 @@ public class AnswerController {
 		
 	}
 	
-	
-
-
 }

@@ -17,40 +17,40 @@ import com.school.schoolmanagement.repository.StudentRepository;
 @Service
 public class StudentService {
 	@Autowired
-	private StudentRepository repo;
+	private StudentRepository studentRepository;
 
 	public String createNewStudent(Student student) {
 		// TODO Auto-generated method stub
-		 repo.save(student);
+		studentRepository.save(student);
 		 return "DataSaved";
 		 
 	}
 
 	public Optional<Student> getstudent(Long id) {
 		// TODO Auto-generated method stub
-		return this.repo.findById(id);
+		return this.studentRepository.findById(id);
 	}
 
 	public List<Student> getallstudentdetials() {
 		// TODO Auto-generated method stub
-		return this.repo.findAll();
+		return this.studentRepository.findAll();
 	}
 
 	public void deletestudent(Long id) {
 		// TODO Auto-generated method stub
-		this.repo.deleteById(id);
+		this.studentRepository.deleteById(id);
 		
 	}
 
 	public void updateStudent(Long id,Student student) {
 		// TODO Auto-generated method stub
-		Student updateStudent=repo.findById(id).orElseThrow();
+		Student updateStudent=studentRepository.findById(id).orElseThrow();
 
 		updateStudent.setName(student.getName());
 		updateStudent.setSchool(student.getSchool());
 		updateStudent.setAddress(student.getAddress());
 		
-		repo.save(updateStudent);
+		studentRepository.save(updateStudent);
 		
 			
 		
@@ -63,22 +63,21 @@ public class StudentService {
 
 	public List<Student> searchStudentByName(String name) {
 		// TODO Auto-generated method stub
-		return repo.findStudentByName(name);
+		return studentRepository.findStudentByName(name);
 	}
 
 	public List<Student> searchStudentByAddress(String address) {
 		// TODO Auto-generated method stub
-		return repo.findStudentByAddress(address);
+		return studentRepository.findStudentByAddress(address);
 	}
 
 	public List<StudentDTO> getStudents(String search, Integer page, Integer size, String sortField,String sortDirection) {
 		// TODO Auto-generated method stub
 
-		Sort sort=Sort.by(sortField!=null ? sortField:"defaultSortField");
-		sort= sortDirection!=null&&sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())? sort.ascending():sort.descending();
+		Sort sort= sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortField).ascending():Sort.by(sortField).descending();
 		Pageable pageable=  PageRequest.of(page != null ? page : 0, size != null ? size : 6, sort);
 		
-		Page<Student> studentPage = repo.findByNameContaining(search, pageable);
+		Page<Student> studentPage = studentRepository.findByNameContaining(search, pageable);
 		
 		List<StudentDTO> studentDTOs=new ArrayList<>();
 		

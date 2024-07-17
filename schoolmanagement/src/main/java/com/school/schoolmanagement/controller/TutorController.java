@@ -15,25 +15,25 @@ import com.school.schoolmanagement.entity.Tutor;
 import com.school.schoolmanagement.service.TutorService;
 
 @RestController
-@RequestMapping("/tutor")
+@RequestMapping("/api/tutor")
 public class TutorController {
 	
 	@Autowired
-	public TutorService service;
+	public TutorService tutorService;
 	
 	@PostMapping("/create")
 	public String createTutor(@RequestBody Tutor tutor) {
-		return service.createTutor(tutor);
+		return tutorService.createTutor(tutor);
 	}
 	
-	@GetMapping("/list")
+	@GetMapping("/findall")
 	public List<Tutor> retrive(){
-		return service.retriveTutor();
+		return tutorService.retriveTutor();
 	}
 	
-	@GetMapping("/tutor/{id}")
+	@GetMapping("/find/{id}")
 	public Optional<Tutor> tutordetials(@PathVariable Long id){
-		return service.tutordetials(id);
+		return tutorService.tutordetials(id);
 	}
 	
 	

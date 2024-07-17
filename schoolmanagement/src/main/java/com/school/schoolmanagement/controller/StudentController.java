@@ -22,33 +22,33 @@ import com.school.schoolmanagement.service.StudentService;
 @RequestMapping("/api/student")
 public class StudentController {
 	@Autowired
-	private StudentService service;
+	private StudentService studentService;
 	
-	@PostMapping("/insert")
+	@PostMapping("/create")
 	public String createNewStudent(@RequestBody Student student) {
-		return this.service.createNewStudent(student);
+		return this.studentService.createNewStudent(student);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/findstudent/{id}")
 	public Optional<Student> getstudent(@PathVariable Long id) {
-		return this.service.getstudent(id);
+		return this.studentService.getstudent(id);
 	}
 	
-	@GetMapping("/getallstudents")
+	@GetMapping("/findallstudent")
 		public List<Student> getallstudent(){
-		return service.getallstudentdetials();
+		return studentService.getallstudentdetials();
 
 	}
 	
-	@DeleteMapping("/deletestudent{id}")
+	@DeleteMapping("/deletestudent/{id}")
 	public void  delete(@PathVariable Long id) {
-		this.service.deletestudent(id);
+		this.studentService.deletestudent(id);
 		
 	}
 	
 	@PutMapping("/modifystudent/{id}")
 		public void updateStudent(@PathVariable Long  id,@RequestBody Student student) {
-		service.updateStudent(id,student);
+		studentService.updateStudent(id,student);
 		
 	}
 //	
@@ -57,26 +57,25 @@ public class StudentController {
 //		return service.searchStudent(name,schoolId,address);
 //	}
 	
-	@GetMapping("/search/studentname")
+	@GetMapping("/search/name")
 	public List<Student> searchStudent(@RequestParam String name){
-		return service.searchStudentByName(name);
+		return studentService.searchStudentByName(name);
 		
 	}
 	
-	@GetMapping("/search/studentaddress")
+	@GetMapping("/search/address")
 	public List<Student> searchStudentaddress(@RequestParam String address ){
-		return service.searchStudentByAddress(address);
+		return studentService.searchStudentByAddress(address);
 	}
 	
 	@GetMapping("/search")
-	
 	public List<StudentDTO> getStudents(
 			@RequestParam(required = false) String search,
             @RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer size,
             @RequestParam(required = false, defaultValue = "name") String sortField,
             @RequestParam(required = false, defaultValue = "asc") String sortDirection) {
-       return service.getStudents(search, page, size, sortField, sortDirection);
+       return studentService.getStudents(search, page, size, sortField, sortDirection);
     }
 	
 	

@@ -13,33 +13,33 @@ import com.school.schoolmanagement.repository.QuestionRepository;
 public class QuestionService {
 	
 	@Autowired
-	QuestionRepository repo;
+	QuestionRepository questionRepository;
 
 	public Question crateQuestions(Question question) {
 		// TODO Auto-generated method stub
-		return repo.save(question);
+		return questionRepository.save(question);
 	}
 
 	public List<Question> retriveQuestion() {
 		// TODO Auto-generated method stub
-		return repo.findAll();
+		return questionRepository.findAll();
 	}
 	
 	
 
 	public List<Question> getQuestionsByCategory(Long id) {
 		// TODO Auto-generated method stub
-		return repo.findBysubject_id(id);
+		return questionRepository.findBysubject_id(id);
 	}
 
 	public Optional<Question> getQuestionById(Long id) {
 		// TODO Auto-generated method stub
-		return repo.findById(id);
+		return questionRepository.findById(id);
 	}
 
 	public void deleteQuestion(Long id) {
 		// TODO Auto-generated method stub
-		repo.deleteById(id);
+		questionRepository.deleteById(id);
 		
 	}
 

@@ -15,24 +15,24 @@ import com.school.schoolmanagement.entity.Subject;
 import com.school.schoolmanagement.service.SubjectService;
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/api/subject")
 public class SubjectController {
 	@Autowired
-	public SubjectService service;
+	public SubjectService subjectService;
 	
 	@PostMapping("/create")
 	public String createSubject(@RequestBody Subject subject) {
-		return this.service.createSubject(subject);
+		return this.subjectService.createSubject(subject);
 	}
 	
 	@GetMapping("/retrive")
 	public List<Subject> retrivesubject(){
-		return this.service.retrivesubject();
+		return this.subjectService.retrivesubject();
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void deleteSubject(@PathVariable Long id) {
-		service.deleteSubject(id);
+		subjectService.deleteSubject(id);
 	}
 
 }
