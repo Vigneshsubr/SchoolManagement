@@ -21,7 +21,10 @@ public class StudentService {
 
 	public ResponseDTO createNewStudent(Student student) {
 		// TODO Auto-generated method stub
-		return ResponseDTO.builder().message(Constants.CREATED).data(studentRepository.save(student)).statusCode(200).build();
+		return ResponseDTO.builder()
+				.message(Constants.CREATED)
+				.data(studentRepository.save(student))
+				.statusCode(200).build();
 		 
 		 
 	}

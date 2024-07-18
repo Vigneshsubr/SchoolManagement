@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.school.schoolmanagement.dto.AnswerDTO;
 import com.school.schoolmanagement.dto.QuestionDTO;
 import com.school.schoolmanagement.dto.QuizSubmissionDTO;
+import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.entity.Answer;
 import com.school.schoolmanagement.entity.Question;
 import com.school.schoolmanagement.entity.Quiz;
@@ -22,6 +21,7 @@ import com.school.schoolmanagement.repository.QuestionRepository;
 import com.school.schoolmanagement.repository.QuizRepository;
 import com.school.schoolmanagement.repository.ResultRepository;
 import com.school.schoolmanagement.repository.StudentRepository;
+import com.school.schoolmanagement.util.Constants;
 
 @Service
 public class QuizService {
@@ -43,22 +43,20 @@ public class QuizService {
 	
 
 //creating quiz
-	public ResponseEntity<String> createQuiz(Long id, int numQ, String title ) {
+	public ResponseDTO createQuiz(Long id, int numQ, String title ) {
 		// TODO Auto-generated method stub
 		List<Question> questions= questionRepository.findRandomQuestionBysubject_id(id,numQ);
 		
 		Quiz quiz=new Quiz();
 		quiz.setTitle(title);
 		quiz.setQuestion(questions);
-		quizRepository.save(quiz);
-		
-		return new ResponseEntity<>("Success",HttpStatus.CREATED);
+		return ResponseDTO.builder().message(Constants.CREATED).data(quizRepository.save(quiz)).statusCode(200).build();
 	}
 	
 	
 //get quiz questions
 
-	  public ResponseEntity<List<QuestionDTO>> getQuizQuestions(Long id) {
+	  public ResponseDTO getQuizQuestions(Long id) {
 		// TODO Auto-generated method stub
 		  Optional<Quiz> quiz=quizRepository.findById(id);
 		  List<Question> questionFromDB=quiz.get().getQuestion();
@@ -68,20 +66,20 @@ public class QuizService {
 			  questionForUser.add(qw);  
 			  
 		  }
-		return new ResponseEntity<>(questionForUser,HttpStatus.OK);
+		return ResponseDTO.builder().message(Constants.CREATED).data(questionForUser).statusCode(200).build();
 	}
 	  
 	  
 //Delete quiz
-	public ResponseEntity<List<Quiz>> deleteQuiz(Long id) {
+	public ResponseDTO deleteQuiz(Long id) {
 		// TODO Auto-generated method stub
 		quizRepository.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.IM_USED);
+		return ResponseDTO.builder().message(Constants.REMOVED).statusCode(200).build();
 	}
 
 
 	//submit quiz
-	public Result submitQuiz(QuizSubmissionDTO submissionDTO) {
+	public ResponseDTO submitQuiz(QuizSubmissionDTO submissionDTO) {
 		// TODO Auto-generated method stub
 		Student student=studentRepository.findById(submissionDTO.getStudentId()).orElseThrow();
 		Quiz quiz=quizRepository.findById(submissionDTO.getQuizId()).orElseThrow();
@@ -99,7 +97,7 @@ public class QuizService {
 			
 			
 		}	
-		return null;
+		return ResponseDTO.builder().message(Constants.SUBMITED).statusCode(200).build();
 	}
 	
 //	
@@ -131,7 +129,7 @@ public class QuizService {
 	
 	
 	
-	public Result calculateResult(Long studentId, Long quizId) {
+	public ResponseDTO calculateResult(Long studentId, Long quizId) {
         List<Answer> answers = answerRepository.findByStudentIdAndQuizId(studentId, quizId);
 
         int totalQuestions = answers.size();
@@ -152,9 +150,8 @@ public class QuizService {
         result.setCorrectAnswers(correctAnswers);
         result.setTotalMarks(totalMarks);
 
-        resultRepository.save(result);
 
-        return result;
+        return ResponseDTO.builder().message(Constants.CREATED).data(resultRepository.save(result)).statusCode(200).build();
     }
 	
 	

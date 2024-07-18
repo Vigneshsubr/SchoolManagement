@@ -1,13 +1,12 @@
 package com.school.schoolmanagement.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.entity.Question;
 import com.school.schoolmanagement.repository.QuestionRepository;
+import com.school.schoolmanagement.util.Constants;
 
 @Service
 public class QuestionService {
@@ -15,32 +14,34 @@ public class QuestionService {
 	@Autowired
 	QuestionRepository questionRepository;
 
-	public Question crateQuestions(Question question) {
+	public ResponseDTO crateQuestions(Question question) {
 		// TODO Auto-generated method stub
-		return questionRepository.save(question);
+		return ResponseDTO.builder().message(Constants.CREATED).data(questionRepository.save(question)).statusCode(200).build();
 	}
 
-	public List<Question> retriveQuestion() {
+	public ResponseDTO retriveQuestion() {
 		// TODO Auto-generated method stub
-		return questionRepository.findAll();
+		return ResponseDTO.builder().message(Constants.RETRIEVED).data(questionRepository.findAll()).statusCode(200).build();
+	}
+	
+	public ResponseDTO getQuestionById(Long id) {
+		// TODO Auto-generated method stub
+		return ResponseDTO.builder().message(Constants.FOUND).data(questionRepository.findById(id)).statusCode(200).build();
 	}
 	
 	
 
-	public List<Question> getQuestionsByCategory(Long id) {
+	public ResponseDTO getQuestionsByCategory(Long id) {
 		// TODO Auto-generated method stub
-		return questionRepository.findBysubject_id(id);
+		return ResponseDTO.builder().message(Constants.FOUND).data(questionRepository.findBysubject_id(id)).statusCode(200).build();
 	}
 
-	public Optional<Question> getQuestionById(Long id) {
-		// TODO Auto-generated method stub
-		return questionRepository.findById(id);
-	}
 
-	public void deleteQuestion(Long id) {
-		// TODO Auto-generated method stub
+
+	public ResponseDTO deleteQuestion(Long id) {
 		questionRepository.deleteById(id);
-		
+		return ResponseDTO.builder().message(Constants.REMOVED).statusCode(200).build();
+
 	}
 
 }

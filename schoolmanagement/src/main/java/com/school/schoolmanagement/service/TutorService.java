@@ -1,34 +1,33 @@
 package com.school.schoolmanagement.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.entity.Tutor;
 import com.school.schoolmanagement.repository.TutorRepository;
+import com.school.schoolmanagement.util.Constants;
+
 @Service
 public class TutorService {
 	@Autowired
 	public TutorRepository tutorRepository;
 
-	public String createTutor(Tutor tutor) {
-		tutorRepository.save(tutor);
-		return "Tutor created successfully";
-		// TODO Auto-generated method stub
-		
+	public ResponseDTO createTutor(Tutor tutor) {
+		return ResponseDTO.builder().message(Constants.CREATED).data(tutorRepository.save(tutor)).statusCode(200).build();
 		
 	}
+	
+	
 
-	public List<Tutor> retriveTutor() {
-		// TODO Auto-generated method stub
-		return tutorRepository.findAll();
+	public  ResponseDTO retriveTutor() {
+		return ResponseDTO.builder().message(Constants.RETRIEVED).data(this.tutorRepository.findAll()).statusCode(200).build();
 	}
+	
+	
 
-	public Optional<Tutor> tutordetials(Long id) {
-		// TODO Auto-generated method stub
-		return tutorRepository.findById(id);
+	public  ResponseDTO tutordetials(Long id) {
+		return ResponseDTO.builder().message(Constants.FOUND).data(tutorRepository.findById(id)).statusCode(200).build();
 	}
 
 }

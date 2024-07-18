@@ -1,8 +1,5 @@
 package com.school.schoolmanagement.controller;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.entity.Question;
 import com.school.schoolmanagement.service.QuestionService;
 
@@ -23,31 +21,31 @@ public class QuestionController {
 	QuestionService questionservice;
 	
 	@PostMapping("/create")
-	public Question createQuestion(@RequestBody Question question) {
+	public ResponseDTO createQuestion(@RequestBody Question question) {
 		return questionservice.crateQuestions(question);
 		
 	}
 	
 	@GetMapping("/retrive")
-	public List<Question> getAllQuestion(){
+	public ResponseDTO getAllQuestion(){
 		return questionservice.retriveQuestion();
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Question> getQuestionById(@PathVariable Long id){
+	public ResponseDTO getQuestionById(@PathVariable Long id){
 		return questionservice.getQuestionById(id);
 		
 	}
 	
 	@GetMapping("category/{id}")
-	public List<Question> getQuestionsByCategory(@PathVariable Long id){
+	public ResponseDTO getQuestionsByCategory(@PathVariable Long id){
 		return questionservice.getQuestionsByCategory(id);
 		
 	}
 	
 	@DeleteMapping("delete/{id}")
-	public void deleteQuesion(@PathVariable Long id) {
-		questionservice.deleteQuestion(id);
+	public ResponseDTO deleteQuesion(@PathVariable Long id) {
+		return questionservice.deleteQuestion(id);
 	}
 
 }

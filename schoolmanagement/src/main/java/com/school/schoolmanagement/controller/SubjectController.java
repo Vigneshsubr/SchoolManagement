@@ -1,7 +1,5 @@
 package com.school.schoolmanagement.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.entity.Subject;
 import com.school.schoolmanagement.service.SubjectService;
 
@@ -21,18 +20,18 @@ public class SubjectController {
 	public SubjectService subjectService;
 	
 	@PostMapping("/create")
-	public String createSubject(@RequestBody Subject subject) {
+	public ResponseDTO createSubject(@RequestBody Subject subject) {
 		return this.subjectService.createSubject(subject);
 	}
 	
 	@GetMapping("/retrive")
-	public List<Subject> retrivesubject(){
+	public ResponseDTO retrivesubject(){
 		return this.subjectService.retrivesubject();
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public void deleteSubject(@PathVariable Long id) {
-		subjectService.deleteSubject(id);
+	public ResponseDTO deleteSubject(@PathVariable Long id) {
+		return subjectService.deleteSubject(id);
 	}
 
 }

@@ -1,13 +1,12 @@
 package com.school.schoolmanagement.service;
 
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.school.schoolmanagement.entity.Result;
+import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.repository.ResultRepository;
+import com.school.schoolmanagement.util.Constants;
 
 @Service
 public class ResultService {
@@ -15,21 +14,19 @@ public class ResultService {
 	@Autowired
 	private ResultRepository resultRepository;
 
-	public Optional<Result> displayResult(Long studentId) {
-		// TODO Auto-generated method stub
-		 return resultRepository.findByStudentId(studentId);
+	public ResponseDTO displayResult(Long studentId) {
+		 return ResponseDTO.builder().message(Constants.RETRIEVED).data(resultRepository.findByStudentId(studentId)).statusCode(200).build();
 		 
 	}
 
-	public String deleteResult(Long id) {
-		// TODO Auto-generated method stub
+	public ResponseDTO deleteResult(Long id) {
 		 resultRepository.deleteById(id);
-		 return "Deleted Successfully";
+		 return ResponseDTO.builder().message(Constants.REMOVED).statusCode(200).build();
 	}
 
-	public Integer calculateTotalMarks(Long studentId) {
+	public ResponseDTO calculateTotalMarks(Long studentId) {
 		// TODO Auto-generated method stub
-		return resultRepository.calculateTotalByStudentId(studentId);
+		return ResponseDTO.builder().message(Constants.FOUND).data(resultRepository.calculateTotalByStudentId(studentId)).statusCode(200).build();
 	}
 
 
