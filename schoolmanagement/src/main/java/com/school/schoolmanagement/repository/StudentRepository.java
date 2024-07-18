@@ -41,7 +41,7 @@ public interface StudentRepository extends JpaRepository<Student, Long>{
             "LEFT JOIN School_detials  school ON s.school_id = school.id " +
             "WHERE (:search IS NULL OR s.name LIKE %:search%) OR " +
             "(:search IS NULL OR s.address LIKE %:search%) OR " +
-            "(:search IS NULL OR school.id LIKE %:search%)", 
+            "(:search IS NULL OR school.name LIKE %:search%)", 
     nativeQuery = true)
 	Page<Student> findByNameContaining(@Param("search") String search, Pageable pageable);
 

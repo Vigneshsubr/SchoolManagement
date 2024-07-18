@@ -70,8 +70,7 @@ public class QuizService {
 		  }
 		return new ResponseEntity<>(questionForUser,HttpStatus.OK);
 	}
-//	  
-//	  
+	  
 	  
 //Delete quiz
 	public ResponseEntity<List<Quiz>> deleteQuiz(Long id) {
