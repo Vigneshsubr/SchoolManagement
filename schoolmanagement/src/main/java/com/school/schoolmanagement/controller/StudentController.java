@@ -1,8 +1,6 @@
 package com.school.schoolmanagement.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.dto.StudentDTO;
 import com.school.schoolmanagement.entity.Student;
 import com.school.schoolmanagement.service.StudentService;
@@ -25,30 +23,30 @@ public class StudentController {
 	private StudentService studentService;
 	
 	@PostMapping("/create")
-	public String createNewStudent(@RequestBody Student student) {
-		return this.studentService.createNewStudent(student);
+	public ResponseDTO createNewStudent(@RequestBody Student student) {
+		return studentService.createNewStudent(student);
 	}
 	
 	@GetMapping("/findstudent/{id}")
-	public Optional<Student> getstudent(@PathVariable Long id) {
-		return this.studentService.getstudent(id);
+	public ResponseDTO getstudent(@PathVariable Long id) {
+		return studentService.getstudent(id);
 	}
 	
 	@GetMapping("/findallstudent")
-		public List<Student> getallstudent(){
+		public ResponseDTO getallstudent(){
 		return studentService.getallstudentdetials();
 
 	}
 	
 	@DeleteMapping("/deletestudent/{id}")
-	public void  delete(@PathVariable Long id) {
-		this.studentService.deletestudent(id);
+	public ResponseDTO  delete(@PathVariable Long id) {
+		return studentService.deletestudent(id);
 		
 	}
 	
 	@PutMapping("/modifystudent/{id}")
-		public void updateStudent(@PathVariable Long  id,@RequestBody Student student) {
-		studentService.updateStudent(id,student);
+		public ResponseDTO updateStudent(@PathVariable Long  id,@RequestBody Student student) {
+		return studentService.updateStudent(id,student);
 		
 	}
 //	

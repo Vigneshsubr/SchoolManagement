@@ -1,18 +1,14 @@
 package com.school.schoolmanagement.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
+@Builder
 public class ResponseDTO {
 	
 	private String message;
-	
 	private Object data;
+	private Integer statusCode;
 
 }

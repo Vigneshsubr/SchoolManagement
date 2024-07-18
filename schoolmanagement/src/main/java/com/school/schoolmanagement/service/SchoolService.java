@@ -1,12 +1,11 @@
 package com.school.schoolmanagement.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.entity.School;
 import com.school.schoolmanagement.repository.SchoolRepository;
+import com.school.schoolmanagement.util.Constants;
 
 @Service
 public class SchoolService {
@@ -14,20 +13,19 @@ public class SchoolService {
 @Autowired
 public SchoolRepository schoolRepository;
 
-	public void createNewSchool(School school) {
-		// TODO Auto-generated method stub
+	public ResponseDTO createNewSchool(School school) {
 		schoolRepository.save(school);
+		return ResponseDTO.builder().message(Constants.CREATED).data(this.schoolRepository.save(school)).statusCode(201).build();
 		
 	}
 
-	public List<School> getAllSchool(School school) {
-		// TODO Auto-generated method stub
-		return schoolRepository.findAll();
+	public ResponseDTO getAllSchool(School school) {
+		return ResponseDTO.builder().message(Constants.RETRIEVED).data(this.schoolRepository.findAll()).statusCode(200).build();
 	}
 
-	public void deleteSchool(Long school) {
-		// TODO Auto-generated method stub
+	public ResponseDTO deleteSchool(Long school) {
 		schoolRepository.deleteById(school);
+     	return ResponseDTO.builder().message(Constants.REMOVED).statusCode(200).build();
 		
 	}
 	

@@ -2,8 +2,6 @@ package com.school.schoolmanagement.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,38 +9,41 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.dto.StudentDTO;
 import com.school.schoolmanagement.entity.Student;
 import com.school.schoolmanagement.repository.StudentRepository;
+import com.school.schoolmanagement.util.Constants;
 @Service
 public class StudentService {
 	@Autowired
 	private StudentRepository studentRepository;
 
-	public String createNewStudent(Student student) {
+	public ResponseDTO createNewStudent(Student student) {
 		// TODO Auto-generated method stub
-		studentRepository.save(student);
-		 return "DataSaved";
+		return ResponseDTO.builder().message(Constants.CREATED).data(studentRepository.save(student)).statusCode(200).build();
+		 
 		 
 	}
 
-	public Optional<Student> getstudent(Long id) {
+	public ResponseDTO getstudent(Long id) {
 		// TODO Auto-generated method stub
-		return this.studentRepository.findById(id);
+		return ResponseDTO.builder().message(Constants.RETRIEVED).data(studentRepository.findById(id)).statusCode(200).build();
 	}
 
-	public List<Student> getallstudentdetials() {
+	public ResponseDTO getallstudentdetials() {
 		// TODO Auto-generated method stub
-		return this.studentRepository.findAll();
+		return ResponseDTO.builder().message(Constants.RETRIEVED).data(studentRepository.findAll()).statusCode(200).build();
 	}
 
-	public void deletestudent(Long id) {
+	public ResponseDTO deletestudent(Long id) {
 		// TODO Auto-generated method stub
-		this.studentRepository.deleteById(id);
+		studentRepository.deleteById(id);
+		return ResponseDTO.builder().message(Constants.REMOVED).statusCode(200).build();
 		
 	}
 
-	public void updateStudent(Long id,Student student) {
+	public ResponseDTO updateStudent(Long id,Student student) {
 		// TODO Auto-generated method stub
 		Student updateStudent=studentRepository.findById(id).orElseThrow();
 
@@ -50,7 +51,7 @@ public class StudentService {
 		updateStudent.setSchool(student.getSchool());
 		updateStudent.setAddress(student.getAddress());
 		
-		studentRepository.save(updateStudent);
+		return ResponseDTO.builder().message(Constants.MODIFIED).data(studentRepository.save(updateStudent)).statusCode(200).build();
 		
 			
 		
