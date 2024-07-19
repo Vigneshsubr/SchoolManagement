@@ -54,9 +54,7 @@ public class StudentService {
 		updateStudent.setSchool(student.getSchool());
 		updateStudent.setAddress(student.getAddress());
 		
-		return ResponseDTO.builder().message(Constants.MODIFIED).data(studentRepository.save(updateStudent)).statusCode(200).build();
-		
-			
+		return ResponseDTO.builder().message(Constants.MODIFIED).data(studentRepository.save(updateStudent)).statusCode(200).build();		
 		
 	}
 
@@ -65,17 +63,17 @@ public class StudentService {
 //		return repo.searchStudent(name, schoolId, address);
 //	}
 
-	public List<Student> searchStudentByName(String name) {
+	public ResponseDTO searchStudentByName(String name) {
 		// TODO Auto-generated method stub
-		return studentRepository.findStudentByName(name);
+		return ResponseDTO.builder().message(Constants.FOUND).data(studentRepository.findStudentByName(name)).statusCode(200).build();
 	}
 
-	public List<Student> searchStudentByAddress(String address) {
+	public ResponseDTO searchStudentByAddress(String address) {
 		// TODO Auto-generated method stub
-		return studentRepository.findStudentByAddress(address);
+		return ResponseDTO.builder().message(Constants.FOUND).data(studentRepository.findStudentByAddress(address)).statusCode(200).build();
 	}
 
-	public List<StudentDTO> getStudents(String search, Integer page, Integer size, String sortField,String sortDirection) {
+	public ResponseDTO getStudents(String search, Integer page, Integer size, String sortField,String sortDirection) {
 		// TODO Auto-generated method stub
 
 		Sort sort= sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortField).ascending():Sort.by(sortField).descending();
@@ -92,7 +90,7 @@ public class StudentService {
 			dto.setSchoolId(student.getId());
 			studentDTOs.add(dto);
 		}
-		return studentDTOs;
+		return ResponseDTO.builder().message(Constants.FOUND).data(studentDTOs).statusCode(200).build();
 
 	     
 

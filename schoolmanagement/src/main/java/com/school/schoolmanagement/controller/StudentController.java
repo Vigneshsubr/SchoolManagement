@@ -1,6 +1,5 @@
 package com.school.schoolmanagement.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.school.schoolmanagement.dto.ResponseDTO;
-import com.school.schoolmanagement.dto.StudentDTO;
 import com.school.schoolmanagement.entity.Student;
 import com.school.schoolmanagement.service.StudentService;
 
@@ -56,18 +54,18 @@ public class StudentController {
 //	}
 	
 	@GetMapping("/search/name")
-	public List<Student> searchStudent(@RequestParam String name){
+	public ResponseDTO searchStudent(@RequestParam String name){
 		return studentService.searchStudentByName(name);
 		
 	}
 	
 	@GetMapping("/search/address")
-	public List<Student> searchStudentaddress(@RequestParam String address ){
+	public ResponseDTO searchStudentaddress(@RequestParam String address ){
 		return studentService.searchStudentByAddress(address);
 	}
 	
 	@GetMapping("/search")
-	public List<StudentDTO> getStudents(
+	public ResponseDTO getStudents(
 			@RequestParam(required = false) String search,
             @RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer size,
