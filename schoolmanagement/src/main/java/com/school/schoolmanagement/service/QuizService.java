@@ -44,7 +44,7 @@ public class QuizService {
 
 //creating quiz
 	public ResponseDTO createQuiz(Long id, int numQ, String title ) {
-		// TODO Auto-generated method stub
+
 		List<Question> questions= questionRepository.findRandomQuestionBysubject_id(id,numQ);
 		
 		Quiz quiz=new Quiz();
@@ -72,7 +72,7 @@ public class QuizService {
 	  
 //Delete quiz
 	public ResponseDTO deleteQuiz(Long id) {
-		// TODO Auto-generated method stub
+
 		quizRepository.deleteById(id);
 		return ResponseDTO.builder().message(Constants.REMOVED).statusCode(200).build();
 	}
@@ -80,7 +80,7 @@ public class QuizService {
 
 	//submit quiz
 	public ResponseDTO submitQuiz(QuizSubmissionDTO submissionDTO) {
-		// TODO Auto-generated method stub
+
 		Student student=studentRepository.findById(submissionDTO.getStudentId()).orElseThrow();
 		Quiz quiz=quizRepository.findById(submissionDTO.getQuizId()).orElseThrow();
 		

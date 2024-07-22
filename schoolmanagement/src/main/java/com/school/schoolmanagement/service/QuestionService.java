@@ -15,24 +15,24 @@ public class QuestionService {
 	QuestionRepository questionRepository;
 
 	public ResponseDTO crateQuestions(Question question) {
-		// TODO Auto-generated method stub
+
 		return ResponseDTO.builder().message(Constants.CREATED).data(questionRepository.save(question)).statusCode(200).build();
 	}
 
 	public ResponseDTO retriveQuestion() {
-		// TODO Auto-generated method stub
+
 		return ResponseDTO.builder().message(Constants.RETRIEVED).data(questionRepository.findAll()).statusCode(200).build();
 	}
 	
 	public ResponseDTO getQuestionById(Long id) {
-		// TODO Auto-generated method stub
+
 		return ResponseDTO.builder().message(Constants.FOUND).data(questionRepository.findById(id)).statusCode(200).build();
 	}
 	
 	
 
 	public ResponseDTO getQuestionsByCategory(Long id) {
-		// TODO Auto-generated method stub
+
 		return ResponseDTO.builder().message(Constants.FOUND).data(questionRepository.findBysubject_id(id)).statusCode(200).build();
 	}
 

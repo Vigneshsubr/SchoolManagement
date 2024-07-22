@@ -25,7 +25,7 @@ public class ResultService {
 	}
 
 	public ResponseDTO calculateTotalMarks(Long studentId) {
-		// TODO Auto-generated method stub
+
 		return ResponseDTO.builder().message(Constants.FOUND).data(resultRepository.calculateTotalByStudentId(studentId)).statusCode(200).build();
 	}
 

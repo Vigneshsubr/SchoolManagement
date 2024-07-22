@@ -20,7 +20,7 @@ public class StudentService {
 	private StudentRepository studentRepository;
 
 	public ResponseDTO createNewStudent(Student student) {
-		// TODO Auto-generated method stub
+
 		return ResponseDTO.builder()
 				.message(Constants.CREATED)
 				.data(studentRepository.save(student))
@@ -30,24 +30,24 @@ public class StudentService {
 	}
 
 	public ResponseDTO getstudent(Long id) {
-		// TODO Auto-generated method stub
+
 		return ResponseDTO.builder().message(Constants.RETRIEVED).data(studentRepository.findById(id)).statusCode(200).build();
 	}
 
 	public ResponseDTO getallstudentdetials() {
-		// TODO Auto-generated method stub
+
 		return ResponseDTO.builder().message(Constants.RETRIEVED).data(studentRepository.findAll()).statusCode(200).build();
 	}
 
 	public ResponseDTO deletestudent(Long id) {
-		// TODO Auto-generated method stub
+
 		studentRepository.deleteById(id);
 		return ResponseDTO.builder().message(Constants.REMOVED).statusCode(200).build();
 		
 	}
 
 	public ResponseDTO updateStudent(Long id,Student student) {
-		// TODO Auto-generated method stub
+
 		Student updateStudent=studentRepository.findById(id).orElseThrow();
 
 		updateStudent.setName(student.getName());
@@ -64,17 +64,14 @@ public class StudentService {
 //	}
 
 	public ResponseDTO searchStudentByName(String name) {
-		// TODO Auto-generated method stub
 		return ResponseDTO.builder().message(Constants.FOUND).data(studentRepository.findStudentByName(name)).statusCode(200).build();
 	}
 
 	public ResponseDTO searchStudentByAddress(String address) {
-		// TODO Auto-generated method stub
 		return ResponseDTO.builder().message(Constants.FOUND).data(studentRepository.findStudentByAddress(address)).statusCode(200).build();
 	}
 
 	public ResponseDTO getStudents(String search, Integer page, Integer size, String sortField,String sortDirection) {
-		// TODO Auto-generated method stub
 
 		Sort sort= sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortField).ascending():Sort.by(sortField).descending();
 		Pageable pageable=  PageRequest.of(page != null ? page : 0, size != null ? size : 6, sort);
