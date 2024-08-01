@@ -45,7 +45,8 @@ public class AuthConfig {
 	                .requestMatchers("/api/v1/result/delete/{id}").hasAnyAuthority("TUTOR","ADMIN")
 	                .requestMatchers("/api/v1/school/**").hasAuthority("ADMIN")
 	                .requestMatchers("/api/v1/salary/create","/api/v1/salary/modify/{id}").hasAuthority("ADMIN")
-//---removed---
+	                .requestMatchers("/api/v1/salary/findsalary/{id}").hasAnyAuthority("TUTOR","ADMIN")
+
 	                .anyRequest().authenticated())
 	            
 	            .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
