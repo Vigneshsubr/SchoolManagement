@@ -12,7 +12,7 @@ import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.service.ResultService;
 
 @RestController
-@RequestMapping("/api/result")
+@RequestMapping("/api/v1/result")
 public class ResultController {
 	
 	@Autowired

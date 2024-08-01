@@ -13,7 +13,7 @@ import com.school.schoolmanagement.entity.Tutor;
 import com.school.schoolmanagement.service.TutorService;
 
 @RestController
-@RequestMapping("/api/tutor")
+@RequestMapping("/api/v1/tutor")
 public class TutorController {
 	
 	@Autowired

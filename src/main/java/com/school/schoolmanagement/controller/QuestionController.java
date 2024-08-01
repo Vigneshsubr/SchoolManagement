@@ -14,7 +14,7 @@ import com.school.schoolmanagement.entity.Question;
 import com.school.schoolmanagement.service.QuestionService;
 
 @RestController
-@RequestMapping("/api/question")
+@RequestMapping("/api/v1/question")
 public class QuestionController {
 	
 	@Autowired

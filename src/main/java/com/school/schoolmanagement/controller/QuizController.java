@@ -16,10 +16,10 @@ import com.school.schoolmanagement.dto.ResponseDTO;
 import com.school.schoolmanagement.service.QuizService;
 
 @RestController
-@RequestMapping("/api/quiz")
+@RequestMapping("/api/v1/quiz")
 public class QuizController {
 	@Autowired
-	QuizService quizService;
+	private QuizService quizService;
 	
 	@PostMapping("/create")
 	public ResponseDTO createQuiz(@RequestParam Long id,@RequestParam int numQ,@RequestParam String title){
@@ -27,7 +27,7 @@ public class QuizController {
 		
 	}
 	
-	@GetMapping("/find/{id}")
+	@GetMapping("/show/{id}")
 	public ResponseDTO getQuizQuestion(@PathVariable Long id){
 		return quizService.getQuizQuestions(id);
 	}

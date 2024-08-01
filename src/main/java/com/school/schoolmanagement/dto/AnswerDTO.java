@@ -1,25 +1,24 @@
 package com.school.schoolmanagement.dto;
 
 public class AnswerDTO {
-	
-    private Long questionId;
+
+	private Long questionId;
 	private String selectedAnswer;
-	
-	
-    
-    public Long getQuestionId() {
+
+	public Long getQuestionId() {
 		return questionId;
 	}
+
 	public void setQuestionId(Long questionId) {
 		this.questionId = questionId;
 	}
+
 	public String getSelectedAnswer() {
 		return selectedAnswer;
 	}
+
 	public void setSelectedAnswer(String selectedAnswer) {
 		this.selectedAnswer = selectedAnswer;
 	}
-
-
 
 }

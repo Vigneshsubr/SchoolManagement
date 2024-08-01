@@ -25,51 +25,48 @@ import com.school.schoolmanagement.util.Constants;
 
 @Service
 public class QuizService {
-	
+
 	@Autowired
 	QuizRepository quizRepository;
-	
+
 	@Autowired
 	QuestionRepository questionRepository;
-	
+
 	@Autowired
 	AnswerRepository answerRepository;
 //	
 	@Autowired
 	ResultRepository resultRepository;
-	
+
 	@Autowired
 	StudentRepository studentRepository;
-	
 
 //creating quiz
-	public ResponseDTO createQuiz(Long id, int numQ, String title ) {
+	public ResponseDTO createQuiz(Long id, int numQ, String title) {
 
-		List<Question> questions= questionRepository.findRandomQuestionBysubject_id(id,numQ);
-		
-		Quiz quiz=new Quiz();
+		List<Question> questions = questionRepository.findRandomQuestionBysubject_id(id, numQ);
+
+		Quiz quiz = new Quiz();
 		quiz.setTitle(title);
 		quiz.setQuestion(questions);
 		return ResponseDTO.builder().message(Constants.CREATED).data(quizRepository.save(quiz)).statusCode(200).build();
 	}
-	
-	
+
 //get quiz questions
 
-	  public ResponseDTO getQuizQuestions(Long id) {
-		// TODO Auto-generated method stub
-		  Optional<Quiz> quiz=quizRepository.findById(id);
-		  List<Question> questionFromDB=quiz.get().getQuestion();
-		  List<QuestionDTO> questionForUser=new ArrayList<>();
-		  for(Question q: questionFromDB) {
-			  QuestionDTO qw=new QuestionDTO(q.getId(),q.getQuestion(),q.getOption1(),q.getOption2());
-			  questionForUser.add(qw);  
-			  
-		  }
+	public ResponseDTO getQuizQuestions(Long id) {
+
+		Optional<Quiz> quiz = quizRepository.findById(id);
+		List<Question> questionFromDB = quiz.get().getQuestion();
+		List<QuestionDTO> questionForUser = new ArrayList<>();
+		for (Question q : questionFromDB) {
+			QuestionDTO qw = new QuestionDTO(q.getId(), q.getQuestion(), q.getOption1(), q.getOption2());
+			questionForUser.add(qw);
+
+		}
 		return ResponseDTO.builder().message(Constants.CREATED).data(questionForUser).statusCode(200).build();
 	}
-	  
-	  
+
 //Delete quiz
 	public ResponseDTO deleteQuiz(Long id) {
 
@@ -77,29 +74,27 @@ public class QuizService {
 		return ResponseDTO.builder().message(Constants.REMOVED).statusCode(200).build();
 	}
 
-
-	//submit quiz
+	// submit quiz
 	public ResponseDTO submitQuiz(QuizSubmissionDTO submissionDTO) {
 
-		Student student=studentRepository.findById(submissionDTO.getStudentId()).orElseThrow();
-		Quiz quiz=quizRepository.findById(submissionDTO.getQuizId()).orElseThrow();
-		
-		for(AnswerDTO answerDTO : submissionDTO.getAnswers()) {
-			
+		Student student = studentRepository.findById(submissionDTO.getStudentId()).orElseThrow();
+		Quiz quiz = quizRepository.findById(submissionDTO.getQuizId()).orElseThrow();
+
+		for (AnswerDTO answerDTO : submissionDTO.getAnswers()) {
+
 			Question question = questionRepository.findById(answerDTO.getQuestionId()).orElseThrow();
-		    Answer answer=new Answer();
+			Answer answer = new Answer();
 			answer.setStudent(student);
 			answer.setQuiz(quiz);
 			answer.setQuestion(question);
 			answer.setSelectedAnswer(answerDTO.getSelectedAnswer());
-			
+
 			answerRepository.save(answer);
-			
-			
-		}	
+
+		}
 		return ResponseDTO.builder().message(Constants.SUBMITED).statusCode(200).build();
 	}
-	
+
 //	
 //	public Integer calculateResult(Long studentId, Long quizId) {
 //        List<Answer> answers = answerRepository.findByStudentIdAndQuizId(studentId, quizId);
@@ -126,36 +121,30 @@ public class QuizService {
 //
 //        return Integer;
 //    }
-	
-	
-	
+
 	public ResponseDTO calculateResult(Long studentId, Long quizId) {
-        List<Answer> answers = answerRepository.findByStudentIdAndQuizId(studentId, quizId);
+		List<Answer> answers = answerRepository.findByStudentIdAndQuizId(studentId, quizId);
 
-        int totalQuestions = answers.size();
-        int correctAnswers = 0;
+		int totalQuestions = answers.size();
+		int correctAnswers = 0;
 
-        for (Answer answer : answers) {
-            if (answer.getSelectedAnswer().equals(answer.getQuestion().getRightAnswer())) {
-                correctAnswers++;
-            }
-        }
+		for (Answer answer : answers) {
+			if (answer.getSelectedAnswer().equals(answer.getQuestion().getRightAnswer())) {
+				correctAnswers++;
+			}
+		}
 
-        int totalMarks = correctAnswers; // Assuming each question carries 1 mark
+		int totalMarks = correctAnswers; // Assuming each question carries 1 mark
 
-        Result result = new Result();
-        result.setStudent(answers.get(0).getStudent());
-        result.setQuiz(answers.get(0).getQuiz());
-        result.setTotalQuestions(totalQuestions);
-        result.setCorrectAnswers(correctAnswers);
-        result.setTotalMarks(totalMarks);
+		Result result = new Result();
+		result.setStudent(answers.get(0).getStudent());
+		result.setQuiz(answers.get(0).getQuiz());
+		result.setTotalQuestions(totalQuestions);
+		result.setCorrectAnswers(correctAnswers);
+		result.setTotalMarks(totalMarks);
 
+		return ResponseDTO.builder().message(Constants.CREATED).data(resultRepository.save(result)).statusCode(200)
+				.build();
+	}
 
-        return ResponseDTO.builder().message(Constants.CREATED).data(resultRepository.save(result)).statusCode(200).build();
-    }
-	
-	
-
-	
 }
-

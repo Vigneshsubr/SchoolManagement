@@ -8,4 +8,12 @@ import com.school.schoolmanagement.entity.Tutor;
 @Repository
 public interface TutorRepository extends JpaRepository<Tutor, Long>{
 
+	boolean existsByEmail(String email);
+
+	  Tutor findByEmail(String email);
+
+
+
+	
+
 }

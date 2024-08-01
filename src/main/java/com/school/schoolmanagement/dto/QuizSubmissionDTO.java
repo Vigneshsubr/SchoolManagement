@@ -2,18 +2,13 @@ package com.school.schoolmanagement.dto;
 
 import java.util.List;
 
-
 public class QuizSubmissionDTO {
-	
-    private Long studentId;
-    private Long quizId;
+
+	private Long studentId;
+	private Long quizId;
 	private List<AnswerDTO> answers;
-	
-	
-	
-	
-    
-    public Long getStudentId() {
+
+	public Long getStudentId() {
 		return studentId;
 	}
 
@@ -36,9 +31,5 @@ public class QuizSubmissionDTO {
 	public void setAnswers(List<AnswerDTO> answers) {
 		this.answers = answers;
 	}
-
-
-
-    
 
 }

@@ -14,7 +14,7 @@ import com.school.schoolmanagement.entity.Subject;
 import com.school.schoolmanagement.service.SubjectService;
 
 @RestController
-@RequestMapping("/api/subject")
+@RequestMapping("/api/v1/subject")
 public class SubjectController {
 	@Autowired
 	public SubjectService subjectService;

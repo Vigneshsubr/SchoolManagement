@@ -21,6 +21,20 @@ public class SalaryService {
 	public ResponseDTO findsalary(Long id) {
 		 return ResponseDTO.builder().message(Constants.FOUND).data(salaryRepository.findById(id)).statusCode(200).build();
 	}
+
+	public String modifySalary(Long id, Salary salary) {
+		Salary updateSalary= salaryRepository.findById(id).orElseThrow();
+		
+		updateSalary.setTutor(salary.getTutor());
+		updateSalary.setSalary(salary.getSalary());
+		updateSalary.setDate(salary.getDate());
+		
+		salaryRepository.save(updateSalary);
+
+		
+		
+		return null;
+	}
 	
 	
 

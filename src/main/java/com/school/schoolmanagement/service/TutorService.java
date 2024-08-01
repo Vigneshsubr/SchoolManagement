@@ -27,7 +27,7 @@ public class TutorService {
 	
 
 	public  ResponseDTO tutordetials(Long id) {
-		return ResponseDTO.builder().message(Constants.FOUND).data(tutorRepository.findById(id)).statusCode(200).build();
+		return ResponseDTO.builder().message(Constants.FOUND).data(tutorRepository.findById(id).orElse(null)).statusCode(200).build();
 	}
 
 }
